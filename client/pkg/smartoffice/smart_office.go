@@ -32,6 +32,18 @@ func (office *SmartOffice) getURL(uri string) *url.URL {
 	return urlCopy
 }
 
+func (office *SmartOffice) SetPinValue(pinID uint8, value bool) {
+	var cmds Commands
+	cmds.SetPin(pinID, value)
+	office.sendPOST("execute/", "text/plain", cmds.Bytes())
+}
+
+func (office *SmartOffice) SetPinValues(values uint64) {
+	var cmds Commands
+	cmds.SetValue(values)
+	office.sendPOST("execute/", "text/plain", cmds.Bytes())
+}
+
 func (office *SmartOffice) EnableLightByRadio() {
 	office.sendPOST("execute/", "text/plain", newEnableLightByRadioCommands())
 }
