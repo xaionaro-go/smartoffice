@@ -11,14 +11,14 @@ type smartOfficeEnable []string
 
 func (args smartOfficeEnable) ServeHTTP(http.ResponseWriter, *http.Request) {
 	go smartoffice.New(args[0]).EnableLightByRadio()
-	go smartoffice.New(args[1]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, 0, 0xF7C03F, 32, 10, 0)
+	go smartoffice.New(args[1]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, 0, 0xF740BF, 32, 10, 0)
 }
 
 type smartOfficeDisable []string
 
 func (args smartOfficeDisable) ServeHTTP(http.ResponseWriter, *http.Request) {
 	go smartoffice.New(args[0]).DisableLightByRadio()
-	go smartoffice.New(args[1]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, 0, 0xF740BF, 32, 10, 0)
+	go smartoffice.New(args[1]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, 0, 0xF7C03F, 32, 10, 0)
 }
 
 var rootCmd = &cobra.Command{
