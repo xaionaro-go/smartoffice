@@ -56,6 +56,19 @@ func (office *SmartOffice) DisableLightByRadio() {
 	office.sendPOST("execute/", "text/plain", newDisableLightByRadioCommands())
 }
 
+func (office *SmartOffice) IRSend(
+	deviceType IRCONTROL_TYPE,
+	addressOrHeader, data uint64,
+	nBits, repeats uint8,
+	extra_arg uint64,
+) {
+	office.sendPOST(
+		"execute/",
+		"text/plain",
+		newIRSend(deviceType, addressOrHeader, data, nBits, repeats, extra_arg),
+	)
+}
+
 func (office *SmartOffice) sendPOST(path string, contentType string, data []byte) {
 	req := &http.Request{
 		Method:     "POST",

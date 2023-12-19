@@ -11,6 +11,34 @@ var rootCmd = &cobra.Command{
 	Use: "smartoffice",
 }
 
+var ir = &cobra.Command{
+	Use: "ir",
+}
+
+var irNec = &cobra.Command{
+	Use:  "nec",
+	Args: cobra.ExactArgs(5),
+	Run: func(cmd *cobra.Command, args []string) {
+		address, err := strconv.ParseUint(args[1], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		irCmd, err := smartParseUint(args[2], 64)
+		if err != nil {
+			panic(err)
+		}
+		nBits, err := strconv.ParseUint(args[3], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		nRepeats, err := strconv.ParseUint(args[4], 10, 64)
+		if err != nil {
+			panic(err)
+		}
+		smartoffice.New(args[0]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, address, irCmd, uint8(nBits), uint8(nRepeats), 0)
+	},
+}
+
 var setPinValues = &cobra.Command{
 	Use:  "set-pin-values",
 	Args: cobra.ExactArgs(2),
@@ -65,6 +93,8 @@ var sendNoise = &cobra.Command{
 }
 
 func main() {
+	ir.AddCommand(irNec)
+	rootCmd.AddCommand(ir)
 	rootCmd.AddCommand(setPinValue)
 	rootCmd.AddCommand(setPinValues)
 	rootCmd.AddCommand(enableLightByRadio)
