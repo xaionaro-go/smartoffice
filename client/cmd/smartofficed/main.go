@@ -7,25 +7,27 @@ import (
 	"github.com/xaionaro-go/smartoffice/client/pkg/smartoffice"
 )
 
-type smartOfficeEnable string
+type smartOfficeEnable []string
 
-func (arg smartOfficeEnable) ServeHTTP(http.ResponseWriter, *http.Request) {
-	smartoffice.New(string(arg)).EnableLightByRadio()
+func (args smartOfficeEnable) ServeHTTP(http.ResponseWriter, *http.Request) {
+	go smartoffice.New(args[0]).EnableLightByRadio()
+	go smartoffice.New(args[1]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, 0, 0xF7C03F, 32, 10, 0)
 }
 
-type smartOfficeDisable string
+type smartOfficeDisable []string
 
-func (arg smartOfficeDisable) ServeHTTP(http.ResponseWriter, *http.Request) {
-	smartoffice.New(string(arg)).DisableLightByRadio()
+func (args smartOfficeDisable) ServeHTTP(http.ResponseWriter, *http.Request) {
+	go smartoffice.New(args[0]).DisableLightByRadio()
+	go smartoffice.New(args[1]).IRSend(smartoffice.IRCONTROL_TYPE_NEC, 0, 0xF740BF, 32, 10, 0)
 }
 
 var rootCmd = &cobra.Command{
 	Use:  "smartofficed",
-	Args: cobra.ExactArgs(1),
+	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		mux := http.NewServeMux()
-		mux.Handle("/enable/", smartOfficeEnable(args[0]))
-		mux.Handle("/disable/", smartOfficeDisable(args[0]))
+		mux.Handle("/enable/", smartOfficeEnable(args))
+		mux.Handle("/disable/", smartOfficeDisable(args))
 
 		s := &http.Server{
 			Addr:    "127.0.0.1:46388",
