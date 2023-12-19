@@ -10,6 +10,25 @@ var (
 	brightnessClickStep   = 1.9
 )
 
+func newNoise() []byte {
+	var cmds Commands
+	for value := 0; float64(value) < float64(100)/float64(brightnessClickStep); value++ {
+		cmds.SetPin(3, false)
+		cmds.Delay(delayChangeBrightness)
+		cmds.SetPin(2, false)
+		cmds.Delay(delayChangeBrightness)
+		cmds.SetPin(2, true)
+		cmds.Delay(delayChangeBrightness)
+		cmds.SetPin(3, true)
+		cmds.Delay(delayChangeBrightness)
+		cmds.SetPin(2, false)
+		cmds.Delay(delayChangeBrightness)
+		cmds.SetPin(2, true)
+		cmds.Delay(delayChangeBrightness)
+	}
+	return cmds.Bytes()
+}
+
 func newDisableLightByRadioCommands() []byte {
 	var cmds Commands
 	for group := 0; group < 6; group++ {

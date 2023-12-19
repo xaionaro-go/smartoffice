@@ -56,11 +56,20 @@ var disableLightByRadio = &cobra.Command{
 	},
 }
 
+var sendNoise = &cobra.Command{
+	Use:  "send-noise",
+	Args: cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		smartoffice.New(args[0]).SetNoise()
+	},
+}
+
 func main() {
 	rootCmd.AddCommand(setPinValue)
 	rootCmd.AddCommand(setPinValues)
 	rootCmd.AddCommand(enableLightByRadio)
 	rootCmd.AddCommand(disableLightByRadio)
+	rootCmd.AddCommand(sendNoise)
 	if err := rootCmd.Execute(); err != nil {
 		panic(err)
 	}

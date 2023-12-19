@@ -32,6 +32,10 @@ func (office *SmartOffice) getURL(uri string) *url.URL {
 	return urlCopy
 }
 
+func (office *SmartOffice) SetNoise() {
+	office.sendPOST("execute/", "text/plain", newNoise())
+}
+
 func (office *SmartOffice) SetPinValue(pinID uint8, value bool) {
 	var cmds Commands
 	cmds.SetPin(pinID, value)
