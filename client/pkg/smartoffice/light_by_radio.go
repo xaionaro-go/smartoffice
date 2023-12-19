@@ -53,12 +53,14 @@ func newDisableLightByRadioCommands() []byte {
 	}
 
 	// re-iterate all groups to make sure no settings were lost:
-	for group := 0; group < 6; group++ {
-		// select the next group:
-		cmds.SetPin(1, false)
-		cmds.Delay(delayGroupSwitch)
-		cmds.SetPin(1, true)
-		cmds.Delay(delayGroupSwitch)
+	for i := 0; i < 3; i++ {
+		for group := 0; group < 6; group++ {
+			// select the next group:
+			cmds.SetPin(1, false)
+			cmds.Delay(delayGroupSwitch)
+			cmds.SetPin(1, true)
+			cmds.Delay(delayGroupSwitch)
+		}
 	}
 
 	cmds.SetPin(4, false)
@@ -85,12 +87,14 @@ func newEnableLightByRadioCommands() []byte {
 	}
 
 	// re-iterate all groups to make sure no settings were lost:
-	for group := 0; group < 6; group++ {
-		// select the next group:
-		cmds.SetPin(1, false)
-		cmds.Delay(delayGroupSwitch)
-		cmds.SetPin(1, true)
-		cmds.Delay(delayGroupSwitch)
+	for i := 0; i < 3; i++ {
+		for group := 0; group < 6; group++ {
+			// select the next group:
+			cmds.SetPin(1, false)
+			cmds.Delay(delayGroupSwitch)
+			cmds.SetPin(1, true)
+			cmds.Delay(delayGroupSwitch)
+		}
 	}
 
 	cmds.SetPin(4, false)
