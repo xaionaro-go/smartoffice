@@ -6,7 +6,7 @@ import (
 
 var (
 	delayChangeBrightness = time.Millisecond * 10
-	delayGroupSwitch      = time.Millisecond * 200
+	delayGroupSwitch      = time.Millisecond * 250
 	brightnessClickStep   = 1.9
 )
 
@@ -53,7 +53,7 @@ func newDisableLightByRadioCommands() []byte {
 	}
 
 	// re-iterate all groups to make sure no settings were lost:
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 1; i++ {
 		for group := 0; group < 6; group++ {
 			// select the next group:
 			cmds.SetPin(1, false)

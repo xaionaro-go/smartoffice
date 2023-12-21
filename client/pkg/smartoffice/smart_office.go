@@ -85,8 +85,14 @@ func (office *SmartOffice) sendPOST(path string, contentType string, data []byte
 	}
 
 	resp, err := (&http.Client{
-		Timeout: 30 * time.Second,
+		Timeout: 60 * time.Second,
 	}).Do(req)
+	if err != nil {
+		time.Sleep(2 * time.Second)
+		resp, err = (&http.Client{
+			Timeout: 60 * time.Second,
+		}).Do(req)
+	}
 	if err != nil {
 		panic(err)
 	}
