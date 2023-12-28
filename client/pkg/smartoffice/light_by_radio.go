@@ -5,9 +5,9 @@ import (
 )
 
 var (
-	delayChangeBrightness = time.Millisecond * 10
+	delayChangeBrightness = time.Millisecond * 20
 	delayGroupSwitch      = time.Millisecond * 250
-	brightnessClickStep   = 1.9
+	brightnessClickStep   = 1.5
 )
 
 func newNoise() []byte {

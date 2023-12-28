@@ -2,7 +2,7 @@ package smartoffice
 
 import (
 	"bytes"
-	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -98,5 +98,5 @@ func (office *SmartOffice) sendPOST(path string, contentType string, data []byte
 	}
 	defer resp.Body.Close()
 
-	fmt.Printf("%s\n", resp.Body)
+	log.Printf("%s\n", resp.Body)
 }
